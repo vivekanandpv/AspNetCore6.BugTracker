@@ -1,8 +1,10 @@
+using AspNetCore6.BugTracker.Configuration;
 using AspNetCore6.BugTracker.DataContext;
 using AspNetCore6.BugTracker.Filters;
 using AspNetCore6.BugTracker.Services.Implementations;
 using AspNetCore6.BugTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.OpenApi.Models;
 using Serilog;
 
@@ -36,6 +38,8 @@ namespace AspNetCore6.BugTracker
             builder.Services.AddScoped<IMessageService, MessageService>();
 
             builder.Services.AddSwaggerGen(config => { config.SwaggerDoc("v1.0.0", new OpenApiInfo { Title = "BugTracker API Documentation" }); });
+
+            builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
             var app = builder.Build();
 
