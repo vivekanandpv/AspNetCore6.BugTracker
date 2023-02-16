@@ -27,7 +27,7 @@ public class SoftwareProjectsController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    public async Task<ActionResult<SoftwareProjectViewModel>> UpdateAsync(int id, SoftwareProjectCreateViewModel viewModel)
+    public async Task<ActionResult<SoftwareProjectViewModel>> UpdateAsync(int id, SoftwareProjectUpdateViewModel viewModel)
     {
         return Ok();
     }
