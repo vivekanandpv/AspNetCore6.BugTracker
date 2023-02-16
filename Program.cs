@@ -1,4 +1,6 @@
 using AspNetCore6.BugTracker.DataContext;
+using AspNetCore6.BugTracker.Services.Implementations;
+using AspNetCore6.BugTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 namespace AspNetCore6.BugTracker
@@ -14,7 +16,11 @@ namespace AspNetCore6.BugTracker
             {
                 config.UseSqlServer(builder.Configuration.GetConnectionString("MSSqlLocalDb"));
             });
-            
+            builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<ISoftwareProjectService, SoftwareProjectService>();
+            builder.Services.AddScoped<IBugService, BugService>();
+            builder.Services.AddScoped<IMessageService, MessageService>();
+
             var app = builder.Build();
 
             app.MapControllers();
