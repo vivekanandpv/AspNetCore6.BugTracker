@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace AspNetCore6.BugTracker.Extensions
 {
@@ -50,10 +52,17 @@ namespace AspNetCore6.BugTracker.Extensions
 
         private static IServiceCollection AddControllersConfigured(this IServiceCollection services)
         {
-            services.AddControllers(config =>
-            {
-                config.Filters.Add<GeneralExceptionHandlerFilter>();
-            });
+            services
+                .AddControllers(config => 
+                {
+                    config.Filters.Add<GeneralExceptionHandlerFilter>();
+                })
+                .AddNewtonsoftJson(options =>
+                {
+                    options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Utc;
+                    options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+                    options.SerializerSettings.Converters.Add(new StringEnumConverter());
+                });
 
             return services;
         }
@@ -78,8 +87,10 @@ namespace AspNetCore6.BugTracker.Extensions
         private static IServiceCollection AddAuthConfigured(this IServiceCollection services, WebApplicationBuilder builder)
         {
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
-                    options.TokenValidationParameters = new TokenValidationParameters {
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
                         ValidateIssuerSigningKey = true,
                         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:JwtSecret").Value)),
                         ValidateIssuer = false,
@@ -87,7 +98,8 @@ namespace AspNetCore6.BugTracker.Extensions
                     };
                 });
 
-            services.AddAuthorization(options => {
+            services.AddAuthorization(options =>
+            {
                 options.AddPolicy("Admin", policy => policy.RequireClaim("Roles", "Admin"));
                 options.AddPolicy("User", policy => policy.RequireClaim("Roles", "User", "Admin"));
             });
@@ -97,8 +109,10 @@ namespace AspNetCore6.BugTracker.Extensions
 
         private static IServiceCollection AddCorsConfigured(this IServiceCollection services, WebApplicationBuilder builder)
         {
-            services.AddCors(options => {
-                options.AddPolicy("AppCorsPolicy", config => {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AppCorsPolicy", config =>
+                {
                     config
                         .WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>())
                         .AllowAnyMethod()
@@ -121,7 +135,8 @@ namespace AspNetCore6.BugTracker.Extensions
             app.UseSerilogRequestLogging();
 
             app.UseSwagger();
-            app.UseSwaggerUI(config => {
+            app.UseSwaggerUI(config =>
+            {
                 config.SwaggerEndpoint("/swagger/v1.0.0/swagger.json", "BugTracker");
             });
 

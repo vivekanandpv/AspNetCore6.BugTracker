@@ -8,3 +8,5 @@ Swashbuckle.AspNetCore
 Swashbuckle.AspNetCore.SwaggerGen
 Swashbuckle.AspNetCore.SwaggerUI
 Swashbuckle.AspNetCore
+
+Microsoft.AspNetCore.Mvc.Newtonsoft
