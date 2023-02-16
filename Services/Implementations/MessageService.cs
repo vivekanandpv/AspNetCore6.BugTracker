@@ -74,6 +74,8 @@ public class MessageService : IMessageService
             bug.ResolutionStatus = ResolutionStatus.Resolved;
         }
 
+        await _context.AddAsync(entity);
+
         await _context.SaveChangesAsync();
 
         return ModelMapper.ToViewModel(entity);
