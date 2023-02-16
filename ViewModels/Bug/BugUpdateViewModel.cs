@@ -8,7 +8,4 @@ public class BugUpdateViewModel
     [Required]
     [MaxLength(500)]
     public string Description { get; set; }
-
-    [Required]
-    public ResolutionStatus ResolutionStatus { get; set; }
 }
