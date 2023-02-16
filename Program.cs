@@ -3,10 +3,13 @@ using AspNetCore6.BugTracker.DataContext;
 using AspNetCore6.BugTracker.Filters;
 using AspNetCore6.BugTracker.Services.Implementations;
 using AspNetCore6.BugTracker.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Text;
 
 namespace AspNetCore6.BugTracker
 {
@@ -41,6 +44,21 @@ namespace AspNetCore6.BugTracker
 
             builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:JwtSecret").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+
+            builder.Services.AddAuthorization(options => {
+                options.AddPolicy("Admin", policy => policy.RequireClaim("Roles", "Admin"));
+                options.AddPolicy("User", policy => policy.RequireClaim("Roles", "User", "Admin"));
+            });
+
             var app = builder.Build();
 
             //  If you want this, it must come before MapControllers();
@@ -51,6 +69,9 @@ namespace AspNetCore6.BugTracker
             app.UseSwaggerUI(config => {
                 config.SwaggerEndpoint("/swagger/v1.0.0/swagger.json", "BugTracker");
             });
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.MapControllers();
 
