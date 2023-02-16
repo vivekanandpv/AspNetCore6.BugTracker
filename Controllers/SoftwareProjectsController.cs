@@ -2,34 +2,33 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AspNetCore6.BugTracker.Controllers
+namespace AspNetCore6.BugTracker.Controllers;
+
+[Route("api/v1/[controller]")]
+[ApiController]
+public class SoftwareProjectsController : ControllerBase
 {
-    [Route("api/v1/[controller]")]
-    [ApiController]
-    public class SoftwareProjectsController : ControllerBase
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<SoftwareProjectViewModel>>> GetAllAsync()
     {
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SoftwareProjectViewModel>>> GetAllAsync()
-        {
-            return Ok();
-        }
+        return Ok();
+    }
 
-        [HttpGet("{id:int}")]
-        public async Task<ActionResult<SoftwareProjectViewModel>> GetByIdAsync(int id)
-        {
-            return Ok();
-        }
+    [HttpGet("{id:int}")]
+    public async Task<ActionResult<SoftwareProjectViewModel>> GetByIdAsync(int id)
+    {
+        return Ok();
+    }
 
-        [HttpPost]
-        public async Task<ActionResult<SoftwareProjectViewModel>> CreateAsync(SoftwareProjectCreateViewModel viewModel)
-        {
-            return Ok();
-        }
+    [HttpPost]
+    public async Task<ActionResult<SoftwareProjectViewModel>> CreateAsync(SoftwareProjectCreateViewModel viewModel)
+    {
+        return Ok();
+    }
 
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult<SoftwareProjectViewModel>> UpdateAsync(int id, SoftwareProjectCreateViewModel viewModel)
-        {
-            return Ok();
-        }
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<SoftwareProjectViewModel>> UpdateAsync(int id, SoftwareProjectCreateViewModel viewModel)
+    {
+        return Ok();
     }
 }
