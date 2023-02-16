@@ -60,6 +60,15 @@ namespace AspNetCore6.BugTracker
                 options.AddPolicy("User", policy => policy.RequireClaim("Roles", "User", "Admin"));
             });
 
+            builder.Services.AddCors(options => {
+                options.AddPolicy("AppCorsPolicy", config => {
+                    config
+                        .WithOrigins(builder.Configuration.GetSection("AllowedOrigins").Get<string[]>())
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
+
             var app = builder.Build();
 
             //  If you want this, it must come before MapControllers();
@@ -70,6 +79,8 @@ namespace AspNetCore6.BugTracker
             app.UseSwaggerUI(config => {
                 config.SwaggerEndpoint("/swagger/v1.0.0/swagger.json", "BugTracker");
             });
+
+            app.UseCors("AppCorsPolicy");
 
             app.UseAuthentication();
             app.UseAuthorization();
