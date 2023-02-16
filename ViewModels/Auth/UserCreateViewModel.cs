@@ -6,6 +6,7 @@ public class UserCreateViewModel
 {
     [Required]
     [EmailAddress]
+    [MaxLength(200)]
     public string Username { get; set; }
     
     [Required]

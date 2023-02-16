@@ -15,6 +15,7 @@ public class BugCreateViewModel
 
     public DateTime ReportedOn { get; set; }
 
+    [Required]
     [MaxLength(500)]
     public string Description { get; set; }
 

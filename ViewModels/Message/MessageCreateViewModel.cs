@@ -13,6 +13,7 @@ public class MessageCreateViewModel
     [Range(typeof(DateTime), "2000-01-01", "2099-12-31", ErrorMessage = "CreatedOn should be within {1} and {2}")]
     public DateTime CreatedOn { get; set; }
 
+    [Required]
     [MaxLength(500)]
     public string MessageDescription { get; set; }
 
