@@ -1,4 +1,5 @@
 using AspNetCore6.BugTracker.DataContext;
+using AspNetCore6.BugTracker.Filters;
 using AspNetCore6.BugTracker.Services.Implementations;
 using AspNetCore6.BugTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +12,10 @@ namespace AspNetCore6.BugTracker
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers(config =>
+            {
+                config.Filters.Add<GeneralExceptionHandlerFilter>();
+            });
             builder.Services.AddDbContext<BugTrackerContext>(config =>
             {
                 config.UseSqlServer(builder.Configuration.GetConnectionString("MSSqlLocalDb"));
