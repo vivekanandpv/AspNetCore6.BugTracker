@@ -1,0 +1,14 @@
+2023-02-16 12:27:14.256 +05:30 [INF] Now listening on: http://localhost:5000
+2023-02-16 12:27:14.382 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2023-02-16 12:27:14.386 +05:30 [INF] Hosting environment: Development
+2023-02-16 12:27:14.391 +05:30 [INF] Content root path: C:\Users\vivek\source\repos\AspNetCore6.BugTracker\
+2023-02-16 12:27:21.119 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/index.html - -
+2023-02-16 12:27:21.743 +05:30 [INF] HTTP GET /swagger/index.html responded 200 in 504.9421 ms
+2023-02-16 12:27:21.789 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/index.html - - - 200 - text/html;charset=utf-8 678.3123ms
+2023-02-16 12:27:22.177 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_framework/aspnetcore-browser-refresh.js - -
+2023-02-16 12:27:22.200 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5000/_vs/browserLink - -
+2023-02-16 12:27:22.205 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_framework/aspnetcore-browser-refresh.js - - - 200 12014 application/javascript;+charset=utf-8 27.3349ms
+2023-02-16 12:27:22.300 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5000/_vs/browserLink - - - 200 - text/javascript;+charset=UTF-8 99.3779ms
+2023-02-16 12:27:22.429 +05:30 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json - -
+2023-02-16 12:27:22.875 +05:30 [INF] HTTP GET /swagger/v1.0.0/swagger.json responded 200 in 439.2306 ms
+2023-02-16 12:27:22.881 +05:30 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/v1.0.0/swagger.json - - - 200 - application/json;charset=utf-8 452.2033ms

@@ -4,6 +4,7 @@ using AspNetCore6.BugTracker.Services.Implementations;
 using AspNetCore6.BugTracker.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Serilog;
 
 namespace AspNetCore6.BugTracker
 {
@@ -12,6 +13,14 @@ namespace AspNetCore6.BugTracker
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Console()
+                .WriteTo.File("app-log-.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            //  Logging is a fundamental feature of Asp.Net Core
+            builder.Host.UseSerilog();
 
             builder.Services.AddControllers(config =>
             {
@@ -29,6 +38,10 @@ namespace AspNetCore6.BugTracker
             builder.Services.AddSwaggerGen(config => { config.SwaggerDoc("v1.0.0", new OpenApiInfo { Title = "BugTracker API Documentation" }); });
 
             var app = builder.Build();
+
+            //  If you want this, it must come before MapControllers();
+            //  Very useful feature for profiling request processing
+            app.UseSerilogRequestLogging();
 
             app.UseSwagger();
             app.UseSwaggerUI(config => {
