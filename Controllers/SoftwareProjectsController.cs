@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace AspNetCore6.BugTracker.Controllers;
 
 [Authorize]
-[Route("api/v1/[controller]")]
+[Route("api/v1/software-projects")]
 [ApiController]
 public class SoftwareProjectsController : ControllerBase
 {
