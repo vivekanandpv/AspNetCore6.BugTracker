@@ -39,6 +39,7 @@ namespace AspNetCore6.BugTracker
             builder.Services.AddScoped<ISoftwareProjectService, SoftwareProjectService>();
             builder.Services.AddScoped<IBugService, BugService>();
             builder.Services.AddScoped<IMessageService, MessageService>();
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
 
             builder.Services.AddSwaggerGen(config => { config.SwaggerDoc("v1.0.0", new OpenApiInfo { Title = "BugTracker API Documentation" }); });
 
