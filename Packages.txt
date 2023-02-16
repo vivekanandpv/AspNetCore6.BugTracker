@@ -1,0 +1,5 @@
+﻿Microsoft.EntityFrameworkCore
+Microsoft.EntityFrameworkCore.SqlServer
+Microsoft.AspNetCore.Authentication.JwtBearer (version should be 6.x.x)
+Microsoft.IdentityModel.Tokens
+Serilog.AspNetCore
